@@ -65,7 +65,10 @@ class GroupWelcomeMessageLocalActionsBlock extends BlockBase implements Containe
   protected function blockAccess(AccountInterface $account) {
     $group = \Drupal::routeMatch()->getParameter('group');
 
-    if ($group instanceOf GroupInterface) {
+     if ($group instanceOf GroupInterface) {
+
+      // Load the user for Role check
+      $user = User::load($account->id());
 
       $member = $group->getMember($account);
       
