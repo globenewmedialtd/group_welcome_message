@@ -127,7 +127,7 @@ class GroupWelcomeMessageLocalActionsBlock extends BlockBase implements Containe
           '#url' => Url::fromRoute('entity.group_welcome_message.add_form', ['group' => $group->id()]
               ),
           '#attributes' => [
-            'class' => ['group-welcome-message-action-button','btn','btn-default'],
+            'class' => ['group-welcome-message-action-button','button', 'btn','btn-default'],
           ],
         ],
         'import_group_members' => [
@@ -136,7 +136,7 @@ class GroupWelcomeMessageLocalActionsBlock extends BlockBase implements Containe
           '#url' => Url::fromRoute('group_member_import.import', ['group' => $group->id()]
               ),
           '#attributes' => [
-            'class' => ['group-welcome-message-action-button','btn','btn-default'],
+            'class' => ['group-welcome-message-action-button','button', 'btn','btn-default'],
           ],
         ]
       ];
