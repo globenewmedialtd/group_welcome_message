@@ -1,0 +1,27 @@
+# Welcome Message Logs menu items definition
+entity.group_welcome_message_logger.collection:
+  title: 'Welcome Message Logs list'
+  route_name: entity.group_welcome_message_logger.collection
+  description: 'List Welcome Message Logs entities'
+  parent: system.admin_structure
+  weight: 100
+
+group_welcome_message_logger.admin.structure.settings:
+  title: 'Welcome Message Logs settings'
+  description: 'Configure Welcome Message Logs entities'
+  route_name: group_welcome_message_logger.settings
+  parent: system.admin_structure
+
+group_welcome_message.admin_config_group_welcome_message:
+  title: 'Group Welcome Message Settings'
+  route_name: group_welcome_message.admin_config_group_welcome_message
+  parent: system.admin_config
+  description: 'Settings for Group Welcome Messages'
+  weight: 0
+
+group_welcome_message.settings:
+  title: 'Settings'
+  route_name: group_welcome_message.settings
+  parent: group_welcome_message.admin_config_group_welcome_message
+  description: 'Settings for Group Welcome Messages'
+  weight: 0

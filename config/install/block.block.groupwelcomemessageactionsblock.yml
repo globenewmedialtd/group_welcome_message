@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - group_welcome_message
+    - system
+id: groupwelcomemessageactionsblock
+theme: default
+plugin: group_welcome_message_actions_block
+settings:
+  id: group_welcome_message_actions_block
+  label: 'Group Welcome Message Actions block'
+  provider: group_welcome_message
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: '/group/*/membership'
+    negate: false
+    context_mapping: {  }

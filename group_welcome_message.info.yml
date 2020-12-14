@@ -1,0 +1,12 @@
+name: 'Group Welcome Message'
+type: module
+description: 'Adds welcome messages for Group'
+version: '8.x-1.1'
+core: 8.x
+package: 'Group'
+dependencies:
+  - group
+  - views_bulk_operations
+  - config_translation
+  - token
+  - group_member_import

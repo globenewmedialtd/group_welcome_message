@@ -1,0 +1,56 @@
+group_welcome_message.group_welcome_message.*:
+  type: config_entity
+  label: 'Welcome Message config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    subject:
+      type: label
+      label: 'Subject'
+      translatable: true
+    body:
+      type: text_format
+      label: 'Welcome message new member'
+      translatable: true
+      format: ''
+    body_existing:
+      type: text_format
+      label: 'Welcome message existing member'
+      translatable: true
+      format: ''
+    group:
+      label: 'Group'
+      type: mapping
+      mapping:
+        target_id:
+          type: string
+          label: 'Value'
+    uuid:
+      type: string
+
+group_welcome_message.settings:
+  type: config_object
+  label: 'Settings'
+  mapping:
+    subject_label:
+      label: 'Subject'
+      type: label
+    body_label:
+      label: 'Welcome Message for new users'
+      type: label
+    body_existing_label:
+      label: 'Welcome Message for existing users'
+      type: label
+    selected_format:
+      label: 'Selected Text format'
+      type: string
+    show_token_info:
+      label: 'Show token info'
+      type: boolean
+    language:
+      type: string
+      label: 'Language code'

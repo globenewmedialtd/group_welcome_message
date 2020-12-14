@@ -1,0 +1,6 @@
+group_welcome_message.settings:
+  title: 'Welcome Message Settings'
+  base_route_name: group_welcome_message.settings
+  names:
+    - group_welcome_message.settings
+

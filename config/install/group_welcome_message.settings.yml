@@ -1,0 +1,7 @@
+langcode: en
+subject_label: 'Subject'
+body_label: 'Body for new users'
+body_existing_label: 'Body for existing users'
+selected_format: 'basic_html'
+show_token_info: FALSE
+

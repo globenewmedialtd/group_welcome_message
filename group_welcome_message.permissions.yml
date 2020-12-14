@@ -1,0 +1,26 @@
+add welcome message logs entities:
+  title: 'Create new Welcome Message Logs entities'
+
+administer welcome message logs entities:
+  title: 'Administer Welcome Message Logs entities'
+  description: 'Allow to access the administration form to configure Welcome Message Logs entities.'
+  restrict access: true
+
+delete welcome message logs entities:
+  title: 'Delete Welcome Message Logs entities'
+
+edit welcome message logs entities:
+  title: 'Edit Welcome Message Logs entities'
+
+view published welcome message logs entities:
+  title: 'View published Welcome Message Logs entities'
+
+view unpublished welcome message logs entities:
+  title: 'View unpublished Welcome Message Logs entities'
+
+manage social welcome messages:
+  title: 'Manage Welcome Messages'
+
+translate welcome messages:
+  title: 'Translate welcome messages'
+
