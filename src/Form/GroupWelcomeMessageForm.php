@@ -178,9 +178,9 @@ class GroupWelcomeMessageForm extends EntityForm {
     }
 
 
-    if ($status != SAVED_NEW) {
+    if ($status != SAVED_NEW) {      
 
-      $url = Url::fromRoute('view.group_manage_members.page_group_manage_members',['group' => $group_welcome_message->getGroup()]);
+      $url = Url::fromRoute('view.group_members.page_group_members',['group' => $group_welcome_message->getGroup()]);
       $form_state->setRedirectUrl($url);
 
     }
