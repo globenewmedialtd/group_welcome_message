@@ -63,10 +63,20 @@ class GroupWelcomeMessageLocalActionsBlock extends BlockBase implements Containe
    * {@inheritdoc}
    */
   protected function blockAccess(AccountInterface $account) {
+    
     $group = \Drupal::routeMatch()->getParameter('group');
 
-     if ($group instanceOf GroupInterface) {
 
+    if (!is_object($group) && !is_null($group)) {
+
+      $group = \Drupal::entityTypeManager()
+        ->getStorage('group')
+        ->load($group);
+
+    }
+
+    if ($group instanceOf GroupInterface) {
+      
       // Load the user for Role check
       $user = User::load($account->id());
 
@@ -120,6 +130,15 @@ class GroupWelcomeMessageLocalActionsBlock extends BlockBase implements Containe
 
     // Get current group so we can build correct links.
     $group = \Drupal::routeMatch()->getParameter('group');
+
+
+    if (!is_object($group) && !is_null($group)) {
+
+      $group = \Drupal::entityTypeManager()
+        ->getStorage('group')
+        ->load($group);
+
+    }
 
     if ($group instanceof GroupInterface) {
 

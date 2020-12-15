@@ -81,7 +81,7 @@ class GroupWelcomeMessageSendEmail extends ViewsBulkOperationsActionBase impleme
   protected $allowTextFormat;
 
   /**
-   * Constructs a SocialSendEmail object.
+   * Constructs a GroupWelcomeMessageSendEmail object.
    *
    * @param array $configuration
    *   A configuration array containing information about the plugin instance.
@@ -139,7 +139,7 @@ class GroupWelcomeMessageSendEmail extends ViewsBulkOperationsActionBase impleme
    */
   public function setContext(array &$context) {
     parent::setContext($context);
-    // @todo: make the batch size configurable.
+    // @todo: make the batch size configurable.    
     $context['batch_size'] = 25;
   }
 
@@ -164,7 +164,11 @@ class GroupWelcomeMessageSendEmail extends ViewsBulkOperationsActionBase impleme
       //$data['mail'] = $this->configuration['queue_storage_id'];
       // Add the list of user IDs.
       $data['users'] = $users;
-      $data['group'] = $this->context['group_id'];
+      $data['group'] = $this->context['arguments'][0];
+      
+      //Group_id not in context anymore withou social!!
+      //$data['group'] = $this->context['group_id'];
+      
 
       // Put the $data in the queue item.
       /** @var \Drupal\Core\Queue\QueueInterface $queue */

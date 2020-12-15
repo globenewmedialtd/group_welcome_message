@@ -53,6 +53,7 @@ class GroupWelcomeMessageRelationship extends RelationshipPluginBase {
 
     $argument = $this->view->args;
 
+    
     $table_data = Views::viewsData()
       ->get($this->definition['base']);
     $base_field = empty($this->definition['base field']) ? $table_data['table']['base']['field'] : $this->definition['base field'];
@@ -77,12 +78,15 @@ class GroupWelcomeMessageRelationship extends RelationshipPluginBase {
       $id = 'standard';
     }
 
-    $custom_extra = [
-      [
-        'field' => 'group',
-        'value' => $argument[0]
-      ]
-    ];
+    if (isset($argument) && isset($argument[0])) {
+
+      $custom_extra = [
+        [
+          'field' => 'group',
+          'value' => $argument[0]
+        ]
+      ];
+    }
 
     $def['extra'] = $custom_extra;   
     
