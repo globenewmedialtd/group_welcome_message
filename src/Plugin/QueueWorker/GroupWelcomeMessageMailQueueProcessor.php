@@ -207,7 +207,7 @@ class GroupWelcomeMessageMailQueueProcessor extends QueueWorkerBase implements C
     }
 
     // Ensure html
-    $context['params'] = array('format','full_html');
+    $context['params'] = array('format' => 'full_html');
 
     // Sending Email
     $delivered = $this->mailManager->mail('system', 'action_send_email', $user_mail, $langcode, [
