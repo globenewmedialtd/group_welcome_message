@@ -26,6 +26,7 @@ use Drupal\Core\Language\LanguageInterface;
 use Drupal\Component\Render\PlainTextOutput;
 use Drupal\group_welcome_message\Entity\GroupWelcomeMessageLogger;
 use Drupal\group_welcome_message\Entity\GroupWelcomeMessageLoggerInterface;
+use Drupal\Core\Render\Markup;
 
 /**
  * Queue worker to process email to users.
@@ -196,10 +197,10 @@ class GroupWelcomeMessageMailQueueProcessor extends QueueWorkerBase implements C
       $body_special_tokens = $body_existing_special_tokens;
 
     }
-
+    
     $context = [
       'subject' => $subject_special_tokens,
-      'message' => $body_special_tokens,
+      'message' => Markup::create($body_special_tokens),
     ];
 
     if ($display_name) {
@@ -207,7 +208,7 @@ class GroupWelcomeMessageMailQueueProcessor extends QueueWorkerBase implements C
     }
 
     // Ensure html
-    $context['params'] = array('format' => 'full_html');
+    $context['params'] = array('format' => 'text/html');
 
     // Sending Email
     $delivered = $this->mailManager->mail('system', 'action_send_email', $user_mail, $langcode, [
