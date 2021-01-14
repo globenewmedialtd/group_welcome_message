@@ -9,6 +9,8 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Routing\Access\AccessInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\group\Entity\Group;
+use Drupal\group\Entity\GroupInterface;
 
 /**
  * Implements hook_help().
@@ -24,5 +26,37 @@ function group_welcome_message_help($route_name, RouteMatchInterface $route_matc
 
     default:
   }
+}
+
+/**
+ * Implements hook_group_buttons_add_button_alter()
+ */
+function group_welcome_message_group_buttons_add_button_alter(&$buttons) {
+
+  // Get current group so we can build correct links.
+  $group = \Drupal::routeMatch()->getParameter('group');
+
+  if (!is_object($group) && !is_null($group)) {
+
+    $group = \Drupal::entityTypeManager()
+      ->getStorage('group')
+      ->load($group);
+
+  }
+
+  if ($group instanceof GroupInterface) {
+
+    $buttons['manage_welcome_message'] = [
+      '#type' => 'link',
+      '#title' => t('Manage Welcome Message'),
+      '#url' => Url::fromRoute('entity.group_welcome_message.add_form', ['group' => $group->id()]
+          ),
+      '#attributes' => [
+        'class' => ['group-welcome-message-action-button','button', 'btn','btn-default'],
+      ],
+    ];
+
+  }
+
 }
 

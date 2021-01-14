@@ -12,16 +12,9 @@ group_welcome_message_logger.admin.structure.settings:
   route_name: group_welcome_message_logger.settings
   parent: system.admin_structure
 
-group_welcome_message.admin_config_group_welcome_message:
-  title: 'Group Welcome Message Settings'
-  route_name: group_welcome_message.admin_config_group_welcome_message
-  parent: system.admin_config
-  description: 'Settings for Group Welcome Messages'
-  weight: 0
-
 group_welcome_message.settings:
-  title: 'Settings'
+  title: 'Group Welcome Message Settings'
   route_name: group_welcome_message.settings
-  parent: group_welcome_message.admin_config_group_welcome_message
+  parent: group_buttons_block.admin_config_group
   description: 'Settings for Group Welcome Messages'
   weight: 0
