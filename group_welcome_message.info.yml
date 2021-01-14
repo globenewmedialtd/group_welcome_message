@@ -9,4 +9,4 @@ dependencies:
   - views_bulk_operations
   - config_translation
   - token
-  - group_member_import
+  - group_buttons_block
