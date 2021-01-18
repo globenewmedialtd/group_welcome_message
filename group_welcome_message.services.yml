@@ -6,3 +6,5 @@ services:
   group_welcome_message.tree_builder:
     class: Drupal\group_welcome_message\GroupWelcomeMessageTokenTreeBuilder
     arguments: ['@token', '@token.entity_mapper', '@cache.data', '@language_manager']
+  group_welcome_message.available_fields:
+    class: Drupal\group_welcome_message\GroupWelcomeMessageAvailableFields

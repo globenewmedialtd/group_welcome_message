@@ -129,23 +129,18 @@ class GroupWelcomeMessageForm extends EntityForm {
     );
 
     $suppported_tokens = array('site','user','group');
+    
+    $available_field_tokens = \Drupal::service('group_welcome_message.available_fields');
+    $whitelist = $available_field_tokens->getAvailableFields();
 
     $options = [
       'show_restricted' => TRUE,
       'show_nested' => TRUE,
       'global_types' => FALSE,
-      'whitelist' =>
-        [
-          '[user:mail]',
-          '[user:one-time-login-url]',
-          '[user:display-name]',
-          '[group:title]',
-          '[site:name]'
-        ]
-    ];
+      'whitelist' => $whitelist
+    ];  
 
     $form['available_tokens']['#access'] = $settings->get('show_token_info');
-
 
     $form['available_tokens']['tokens'] = \Drupal::service('group_welcome_message.tree_builder')
       ->buildRenderable($suppported_tokens,$options);
@@ -153,6 +148,54 @@ class GroupWelcomeMessageForm extends EntityForm {
 
 
     return $form;
+
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    // Get Allowed Tokens.
+    $available_field_tokens = \Drupal::service('group_welcome_message.available_fields');
+    $whitelist = $available_field_tokens->getAvailableFields();
+    // Validate Subject
+    $tokens_present = preg_match_all("#\[(.*?)\]#", $form_state->getValue('subject'), $matches);
+    if ($tokens_present) {
+
+      $found_tokens = $matches[0];
+      $wrong_tokens = array_diff($found_tokens,$whitelist);
+
+      if (count($wrong_tokens) > 0) {
+        $form_state->setErrorByName('subject', $this->t('Illegal Tokens found in subject.'));
+      }     
+
+    }
+
+    // Validate Body
+    $tokens_present = preg_match_all("#\[(.*?)\]#", $form_state->getValue('body')['value'], $matches);
+    if ($tokens_present) {
+    
+      $found_tokens = $matches[0];
+      $wrong_tokens = array_diff($found_tokens,$whitelist);
+    
+      if (count($wrong_tokens) > 0) {
+        $form_state->setErrorByName('body', $this->t('Illegal Tokens found in body.'));
+      }     
+    
+    }
+
+    // Validate Body
+    $tokens_present = preg_match_all("#\[(.*?)\]#", $form_state->getValue('body_existing')['value'], $matches);
+    if ($tokens_present) {
+        
+      $found_tokens = $matches[0];
+      $wrong_tokens = array_diff($found_tokens,$whitelist);
+        
+      if (count($wrong_tokens) > 0) {
+        $form_state->setErrorByName('body_existing', $this->t('Illegal Tokens found in body.'));
+      }     
+        
+    }
 
   }
 
