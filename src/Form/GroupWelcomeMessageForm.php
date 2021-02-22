@@ -220,10 +220,18 @@ class GroupWelcomeMessageForm extends EntityForm {
         ]));
     }
 
+    // Decide where to redirect based on module install
+    $moduleHandler = \Drupal::service('module_handler');
+    // If social distro installed redirect to memberhsip view
+    // otherwise the members view of the group module.
+    $redirect_route_name = 'view.group_members.page_1';    
+    if ($moduleHandler->moduleExists('social_group')) {
+      $redirect_route_name = 'view.group_manage_members.page_group_manage_members';
+    }
 
-    if ($status != SAVED_NEW) {      
+    if ($status != SAVED_NEW) {  
 
-      $url = Url::fromRoute('view.group_members.page_1',['group' => $group_welcome_message->getGroup()]);
+      $url = Url::fromRoute($redirect_route_name,['group' => $group_welcome_message->getGroup()]);
       $form_state->setRedirectUrl($url);
 
     }
