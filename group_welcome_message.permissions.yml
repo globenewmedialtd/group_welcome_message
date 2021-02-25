@@ -19,8 +19,8 @@ view unpublished welcome message logs entities:
   title: 'View unpublished Welcome Message Logs entities'
 
 manage group welcome messages:
-  title: 'Manage Welcome Messages'
+  title: 'Manage Group Welcome Messages'
 
-translate welcome messages:
-  title: 'Translate welcome messages'
+translate group welcome messages:
+  title: 'Translate Group welcome messages'
 

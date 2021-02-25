@@ -71,69 +71,61 @@ class GroupWelcomeMessageController extends ControllerBase {
    */
    public function redirectToEditForm() {
 
-      $account = \Drupal::currentUser();
+    $account = \Drupal::currentUser();
 
-     $group_id = \Drupal::routeMatch()->getRawParameter('group');
+    $group_id = \Drupal::routeMatch()->getRawParameter('group');
 
-     $group = Group::load($group_id);
+    $group = Group::load($group_id);  
 
+    $query = \Drupal::entityTypeManager()
+      ->getStorage('group_welcome_message')
+      ->getQuery();
 
+    $query->condition('group', $group_id);
 
-     
+    $result = $query->execute();
 
-     
+    if ($result) {
 
-     $query = \Drupal::entityTypeManager()
+      reset($result);
+      $id = key($result);
+
+      $group_welcome_message = \Drupal::entityTypeManager()
         ->getStorage('group_welcome_message')
-        ->getQuery();
+        ->load($id);
 
-     $query->condition('group', $group_id);
+      return $this->redirect('entity.group_welcome_message.edit_form', ['group' => $group_id, 'group_welcome_message' => $group_welcome_message->id()]);
 
-     $result = $query->execute();
+    }
 
-     if ($result) {
+    $groupWelcomeMessageAddForm = \Drupal::entityTypeManager()
+      ->getStorage('group_welcome_message')
+      ->create();
 
-       reset($result);
-       $id = key($result);
-
-       $group_welcome_message = \Drupal::entityTypeManager()
-         ->getStorage('group_welcome_message')
-         ->load($id);
-
-       return $this->redirect('entity.group_welcome_message.edit_form', ['group' => $group_id, 'group_welcome_message' => $group_welcome_message->id()]);
-
-     }
-
-     $groupWelcomeMessageAddForm = \Drupal::entityTypeManager()
-        ->getStorage('group_welcome_message')
-        ->create();
-
-     return \Drupal::service('entity.form_builder')->getForm($groupWelcomeMessageAddForm, 'add');
+    return \Drupal::service('entity.form_builder')->getForm($groupWelcomeMessageAddForm, 'add');
 
    }
 
    public function viewGroupWelcomeMessage() {
 
-     $group_welcome_message = \Drupal::routeMatch()->getRawParameter('group_welcome_message');
+    $group_welcome_message = \Drupal::routeMatch()->getRawParameter('group_welcome_message');
 
-     $entity = \Drupal::entityTypeManager()
-       ->getStorage('group_welcome_message')
-       ->load($group_welcome_message);
+    $entity = \Drupal::entityTypeManager()
+      ->getStorage('group_welcome_message')
+      ->load($group_welcome_message);
 
-       $subject = [
-         '#markup' => $entity->getSubject(),
-       ];
+    $subject = [
+      '#markup' => $entity->getSubject(),
+    ];
+      
+    $body = [
+      '#type' => 'processed_text',
+      '#text' => $entity->getBody()['value'],
+      '#format' => 'basic_html',
+      // Potentially add keys for #filter_types_to_skip and #langcode.
+    ];
 
-       $body = [
-        '#type' => 'processed_text',
-        '#text' => $entity->getBody()['value'],
-        '#format' => 'basic_html',
-        // Potentially add keys for #filter_types_to_skip and #langcode.
-      ];
-
-      return $body;
-
-
+    return $body;
 
    }
 
@@ -149,8 +141,7 @@ class GroupWelcomeMessageController extends ControllerBase {
   public function access(AccountInterface $account) {
     // Check permissions and combine that with any custom access checking needed. Pass forward
     // parameters from the route and/or request as needed.
-
-    
+   
 
   }
 

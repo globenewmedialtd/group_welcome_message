@@ -29,7 +29,7 @@ class GroupWelcomeMessageAccessControlHandler extends EntityAccessControlHandler
     switch ($operation) {
       case 'view':
        // Here we can access the getGroup()
-       $group = $entity->getGroup();
+       $group_id = $entity->getGroup();
        $group = Group::load($group_id); 
 
       if ($group) {

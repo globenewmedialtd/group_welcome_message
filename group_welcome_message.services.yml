@@ -8,3 +8,8 @@ services:
     arguments: ['@token', '@token.entity_mapper', '@cache.data', '@language_manager']
   group_welcome_message.available_fields:
     class: Drupal\group_welcome_message\GroupWelcomeMessageAvailableFields
+  group_welcome_message.config_translation_overview_custom_access:
+    class: Drupal\group_welcome_message\Access\GroupWelcomeMessageTranslateConfigAccessCheck
+    arguments: ['@current_user']
+    tags:
+      - { name: access_check, applies_to: _config_translation_custom_access }
