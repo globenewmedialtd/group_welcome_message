@@ -133,12 +133,15 @@ class GroupWelcomeMessageMailQueueProcessor extends QueueWorkerBase implements C
         /** @var \Drupal\user\UserInterface $user */
         foreach ($users as $user) {
           // Get language of user
-          $user_language = $user->language();
+          //$user_language = $user->language();
+	  $preferred_language = $user->getPreferredLangcode();
+          $user_language = $this->languageManager->getLanguage($preferred_language);          
           $group_welcome_message_content = $this->getGroupWelcomeMessage($group,$user_language);
 
           // Attempt sending mail and send only if welcome message defined in user language
           if ($user->getEmail() && $group_welcome_message_content instanceof GroupWelcomeMessageInterface) {
-            $this->sendMail($user->getEmail(), $user->language()->getId(), $group_welcome_message_content, $user, $group);
+            //$this->sendMail($user->getEmail(), $user->language()->getId(), $group_welcome_message_content, $user, $group);
+	      $this->sendMail($user->getEmail(), $preferred_language, $group_welcome_message_content, $user, $group);
           }
         }
       }
